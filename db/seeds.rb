@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts '创建管理员信息'
+create_account = User.create([email: 'admin@jdstore.com', password: '123456', password_confirmation: '123456', is_admin: 'true'])

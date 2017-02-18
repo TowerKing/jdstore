@@ -15,4 +15,20 @@
 //= require turbolinks
 //= require bootstrap/alert
 //= require bootstrap/dropdown
+//= require bootstrap/carousel
 //= require_tree .
+
+$(document).ready(function() {
+  $('#china-carousel').carousel({interval: 5000});
+
+  $('.product-item').hover(
+    function() {
+      // $('.product-item').removeClass('product-item-active');
+      $(this).addClass('product-item-active');
+    }
+  );
+
+  $('.product-item').mouseleave(function(){
+    $(this).removeClass('product-item-active');
+  });
+});

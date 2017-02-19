@@ -1,51 +1,86 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2>购物明细</h2>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th width="80%">商品明细</th>
-          <th>单价</th>
-          <th>数量</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% current_cart.cart_items.each do |cart_item| %>
-          <tr>
-            <td><%= link_to cart_item.product.title, product_path(cart_item.product) %></td>
-            <td><%= cart_item.product.price %></td>
-            <td><%= cart_item.quantity %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div class="total clearfix">
-      <span class="pull-right">
-        总计: <%= render_cart_total_price(current_cart) %>元
-      </span>
+<div class="container sotre-content">
+  <div class="row gray-box page-cart">
+    <div class="title pre-title">
+      <h2>生成订单</h2>
     </div>
-    <h2>订单资讯</h2>
-    <div class="order_form">
-      <%= simple_form_for @order do |f| %>
-        <legend>订单人</legend>
-        <div class="form-group col-lg-6">
-          <%= f.input :billing_name %>
+
+    <div class="ui-cart">
+      <div class="cart-table-title">
+        <span class="name">商品名称</span>
+        <span class="operation">操作</span>
+        <span class="subtotal">小计</span>
+        <span class="num">数量</span>
+        <span class="price">单价</span>
+      </div>
+      <div class="cart-table">
+        <div class="cart-group">
+          <% current_cart.cart_items.each do |cart_item| %>
+            <div class="cart-top-items">
+              <div class="cart-items">
+                <div class="items-thumb">
+                  <%= link_to product_path(cart_item.product) do %>
+                    <% if cart_item.product.image.present? %>
+                      <%= image_tag(cart_item.product.image.thumb.url, class: "thumbnail") %>
+                    <% else %>
+                      <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="name">
+                  <%= link_to(cart_item.product.title, product_path(cart_item.product)) %>
+                </div>
+                <div class="operation">
+                  <%= link_to("删除", cart_item_path(cart_item.product_id), method: :delete, class: "btn btn-sm btn-danger fa fa-trash") %>
+                </div>
+                <div class="subtotal">
+                  $<%= cart_item.product.price * cart_item.quantity %>
+                </div>
+                <div class="item-cols-num">
+                  <%= cart_item.quantity %>
+                </div>
+                <div class="price">
+                  $<%= cart_item.product.price %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
-        <div class="form-group col-lg-6">
-          <%= f.input :billing_address %>
+      </div>
+      <div class="cart-bottom-bg fix-bottom">
+        <div class="shipping">
+          <div class="shipping-status">
+            <strong>总计</strong>（不含运费）:
+            <i class="total-price highlight">$ <%= render_cart_total_price(current_cart) %> </i>
+          </div>
         </div>
-        <legend>收货人</legend>
-        <div class="form-group col-lg-6">
-          <%= f.input :shipping_name %>
-        </div>
-        <div class="form-group col-lg-6">
-          <%= f.input :shipping_address %>
-        </div>
-        <div class="checkout">
-          <%= f.submit "生成订单", :class => "btn btn-lg btn-danger pull-right", data: { disable_with: "Submitting..." } %>
-        </div>
-      <% end %>
+      </div>
+    </div>
+
+    <div class="gray-sub-title">
+      订单资讯
+    </div>
+    <div class="gray-sub-con" style="margin-bottom: 15px;">
+      <div class="order_form">
+        <%= simple_form_for @order do |f| %>
+          <legend>订单人</legend>
+          <div class="form-group col-lg-6">
+            <%= f.input :billing_name %>
+          </div>
+          <div class="form-group col-lg-6">
+            <%= f.input :billing_address %>
+          </div>
+          <legend>收货人</legend>
+          <div class="form-group col-lg-6">
+            <%= f.input :shipping_name %>
+          </div>
+          <div class="form-group col-lg-6">
+            <%= f.input :shipping_address %>
+          </div>
+          <div class="checkout">
+            <%= f.submit "生成订单", :class => "btn btn-lg btn-danger pull-right", data: { disable_with: "Submitting..." }, style: "margin-bottom: 15px;" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-
 </div>

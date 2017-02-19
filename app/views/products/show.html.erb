@@ -1,29 +1,51 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
+<div class="container store-content">
+  <div class="row gray-box">
+    <div class="col-md-7">
       <% if @product.image.present? %>
         <%= image_tag(@product.image.medium.url) %>
       <% else %>
         <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
       <% end %>
     </div>
-    <div class="col-md-6">
-      <div class="header">
-        <h1><%= @product.title %></h1>
+    <div class="col-md-5">
+      <div class="product-show-title">
+        <h4><%= @product.title %></h4>
+        <h5><%= @product.title %></h5>
+        <span class="product-price">$<%= @product.price %></span>
       </div>
-      <div class="description" style="height: 100px;">
+      <div class="product-show-quantity clearfix">
+        <div class="params-name">数量</div>
+        <div class="params-detail clearfix">
+          <%= @product.price %>
+        </div>
       </div>
-      <div class="price">
-        <p>数量：<%= @product.quantity %></p>
-        <p>$<%= @product.price %></p>
-      </div>
-      <div class="pull-right">
+      <div class="product-status">
         <% if @product.quantity.present? && @product.quantity > 0 %>
-          <%= link_to '加入购物车', add_to_cart_product_path(@product), :method => :post, class: "btn btn-primary btn-danger" %>
+          <%= link_to '加入购物车', add_to_cart_product_path(@product), :method => :post, class: "btn btn-primary btn-lg" %>
         <% else %>
           已销售一空，无法购买
         <% end %>
+        <div class="product-show-tips">
+          <p>*7 天无理由退货，15天免费换货，满800美元买运费。</p>
+        </div>
       </div>
+    </div>
+  </div>
+
+
+  <div class="row gray-box">
+    <div class="title pre-title">
+      <h2>商品信息</h2>
+    </div>
+    <div class="product-item-info">
+      <% if @product.image.present? %>
+        <%= image_tag(@product.image.url) %>
+      <% else %>
+        <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
+      <% end %>
+    </div>
+    <div class="product-item-description">
+      <%= @product.description %>
     </div>
   </div>
 </div>

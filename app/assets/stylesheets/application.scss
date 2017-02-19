@@ -21,6 +21,7 @@
 
 body {
   background: #f5f5f5;
+  font-family: "PingFang SC","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Microsoft Yahei","微软雅黑",STHeiti,"华文细黑",sans-serif;
 }
 
 .store-placehold {
@@ -154,4 +155,129 @@ body {
 .footer .footer-info {
   padding: 35px 0 65px;
   font-size: 12px;
+}
+
+.store-content {
+  clear: both;
+  min-height: 600px;
+  padding: 0 0 25px;
+  margin: 0 auto;
+}
+
+.gray-box {
+  overflow: hidden;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow: 0 3px 8px -6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.gray-box:first-child {
+  padding: 60px;
+  display: table;
+}
+
+.product-show-title {
+  overflow: hidden;
+  padding: 8px 0 25px 10px;
+  position: relative;
+}
+
+.product-show-title h4 {
+  font-size: 24px;
+  line-height: 1.25;
+  color: #000;
+  margin-bottom: 13px;
+  font-weight: 400;
+}
+
+.product-show-title h5 {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #bdbdbd;
+}
+
+.product-show-title .product-price {
+  position: absolute;
+  right: 10px;
+  bottom: 25px;
+  float: right;
+  color: #de4037;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.product-show-quantity {
+  padding: 29px 0 8px 10px;
+  border-top: 1px solid #ebebeb;
+  margin-bottom: 19px;
+}
+
+.product-show-quantity .params-name {
+  float: left;
+  padding-right: 20px;
+  font-size: 14px;
+  color: #8d8d8d;
+  line-height: 36px;
+}
+
+.product-show-quantity .params-detail {
+  line-height: 36px;
+  float: left;
+  // width: 392px;
+}
+
+.product-status {
+  position: relative;
+  border-top: 1px solid #ebebeb;
+  padding: 30px 0 0 10px;
+}
+
+.product-show-tips {
+  margin-top: 20px;
+  color: #999;
+  font-size: 12px;
+}
+
+.gray-box .title {
+  position: relative;
+  z-index: 10;
+  height: 45px;
+  padding: 0 10px 0 24px;
+  border-bottom: 1px solid #d4d4d4;
+  border-radius: 8px 8px 0 0;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 1px 7px;
+  background: linear-gradient(#fbfbfb, #ececec);
+  line-height: 60px;
+  font-size: 18px;
+  color: #333;
+}
+
+.gray-box .title h2 {
+  font-size: 100%;
+  font-weight: 400;
+}
+
+.gray-box .product-item-info {
+  overflow: hidden;
+  margin-bottom: -6px;
+  border-radius: 0 0 10px 10px;
+  padding: 56px 0 36px 0;
+}
+
+.product-item-info img {
+  display: block;
+  max-width: inherit;
+  margin: 0 auto;
+}
+
+.gray-box .product-item-description {
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+  margin-bottom: 56px;
 }

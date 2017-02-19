@@ -1,63 +1,88 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2>订单明细</h2>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th width="80%">商品明细</th>
-          <th>单价</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @product_lists.each do |product_list| %>
-          <tr>
-            <td>
-              <%= product_list.product_name %>
-            </td>
-            <td>
-              <%= product_list.product_price %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <div class="total clearfix">
-      <span class="pull-right">
-        总计<%= @order.total %>元
-      </span>
+<div class="container sotre-content">
+  <div class="row gray-box">
+    <div class="title pre-title">
+      <h2>订单号：<%= @order.id %></h2>
     </div>
 
-    <hr />
+    <div class="ui-cart page-cart">
+      <div class="cart-table-title">
+        <span class="name">商品名称</span>
+        <span class="operation">商品操作</span>
+        <span class="subtotal">小计</span>
+        <span class="num">数量</span>
+        <span class="price">单价</span>
+      </div>
+      <div class="cart-table">
+        <div class="cart-group">
+          <% @product_lists.each do |product_list| %>
+            <div class="cart-top-items">
+              <div class="cart-items">
+                <div class="items-thumb">
+                  <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+                </div>
+                <div class="name">
+                  <%= product_list.product_name %>
+                </div>
+                <div class="operation">
+                  no action
+                </div>
+                <div class="subtotal">
+                  $<%= product_list.product_price * product_list.quantity %>
+                </div>
+                <div class="item-cols-num">
+                  <%= product_list.quantity %>
+                </div>
+                <div class="price">
+                  $<%= product_list.product_price %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="cart-bottom-bg fix-bottom">
+        <div class="shipping">
+          <div class="shipping-status">
+            <strong>应付金额</strong>（不含运费）:
+            <i class="total-price">$ <%= @order.total %> </i>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <table class="table table-striped table-bordered">
-      <tbody>
-        <tr>
-          <td>订购人</td>
-        </tr>
-        <tr>
-          <td>
-            <%= @order.billing_name %> - <%= @order.billing_address %>
-          </td>
-        </tr>
-        <tr>
-          <td>收件人</td>
-        </tr>
-        <tr>
-          <td>
-            <%= @order.shipping_name %> - <%= @order.shipping_address %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="gray-sub-title">
+      付款信息
+    </div>
+    <div class="gray-sub-con">
+      <% if !@order.is_paid?  %>
+        <p>支付方式：未付款</p>
+      <% else %>
+        <% if @order.payment_method == 'alipay' %>
+          <p>支付方式：支付宝支付</p>
+        <% else %>
+          <p>支付方式：微信支付</p>
+        <% end %>
+      <% end %>
+      <p>支付金额：$<%= @order.total %></p>
+    </div>
+
+    <div class="gray-sub-title">
+      收货信息
+    </div>
+    <div class="gray-sub-con">
+      <p>订购人：<%= @order.billing_name %> - <%= @order.billing_address %></p>
+      <p>收件人：<%= @order.shipping_name %> - <%= @order.shipping_address %></p>
+    </div>
 
     <% if !@order.is_paid?  %>
-      <div class="group pull-right">
-        <%= link_to("以支付宝支付", pay_with_alipay_order_path(@order.token), :method => :post, :class => "btn btn-danger") %>
-        <%= link_to("以微信支付", pay_with_wechat_order_path(@order.token), :method => :post, :class => "btn btn-danger") %>
+      <div class="cart-bottom-bg fix-bottom page-cart">
+        <div class="shipping">
+          <div class="shipping-status">
+            <%= link_to("以支付宝支付", pay_with_alipay_order_path(@order.token), :method => :post, :class => "btn btn-danger") %>
+            <%= link_to("以微信支付", pay_with_wechat_order_path(@order.token), :method => :post, :class => "btn btn-danger") %>
+          </div>
+        </div>
       </div>
-    <% else %>
-      <p class="text-center">此订单已完成付款</p>
     <% end %>
   </div>
 </div>

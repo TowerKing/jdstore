@@ -1,28 +1,53 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2 class="text-center">我的所有订单</h2>
-    <table class="table table-bordered">
-      <thead>
-        <th>订单编号</th>
-        <th>订单金额</th>
-        <th>订单日期</th>
-        <th>订单状态</th>
-      </thead>
-      <tbody>
-        <% @orders.each do |order| %>
-          <tr>
-            <td><%= link_to(order.id, order_path(order.token)) %></td>
-            <td><%= order.total %></td>
-            <td><%= order.created_at.to_s(:long) %></td>
-            <td>
-              <%= render_order_state(order) %>
-              <% if order.order_placed? || order.paid? %>
-                <%= link_to("申请取消订单", apply_cancel_order_path(order.token), method: :post, class: "btn btn-sm btn-default") %>
+<div class="container store-content">
+  <div class="row gray-box">
+    <div class="title pre-title">
+      <h2>我的订单</h2>
+    </div>
+    <% @orders.each do |order| %>
+      <table class="table" style="margin-bottom: 0px;">
+        <thead class="orders-title">
+          <th><%= order.created_at.to_s(:long) %></th>
+          <th>订单编号：<%= link_to(order.id, order_path(order.token)) %></th>
+          <th>单价</th>
+          <th>数量</th>
+          <th>商品操作</th>
+          <th class="left-border order-sum-info">应付总额</th>
+          <th class="order-sum-info"><%= link_to('查看详情', order_path(order.token)) %></th>
+        </thead>
+        <tbody>
+          <% count = 0 %>
+          <% order.product_lists.each do |product_list| %>
+            <tr>
+              <td class="order-product-img" width="180px">
+                <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail")%>
+              </td>
+              <td>
+                <%= product_list.product_name %>
+              </td>
+              <td>
+                $<%= product_list.product_price %>
+              </td>
+              <td>
+                $<%= product_list.quantity %>
+              </td>
+              <td width="15%">
+                <% if order.order_placed? || order.paid? %>
+                  <%= link_to("申请取消订单", apply_cancel_order_path(order.token), method: :post, class: "btn btn-sm btn-default") %>
+                <% end %>
+              </td>
+              <% count = count + 1 %>
+              <% if count == 1 %>
+                <td width="12%" rowspan="<%= order.product_lists.count %>" class="left-border order-sum-info">
+                  $<%= order.total %>
+                </td>
+                <td width="10%" rowspan="<%= order.product_lists.count %>" class="order-sum-info">
+                  <%= render_order_state(order) %>
+                </td>
               <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>

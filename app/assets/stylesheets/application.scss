@@ -243,6 +243,11 @@ body {
   font-size: 12px;
 }
 
+.gray-box .pre-title {
+  position: relative;
+  z-index: 2;
+}
+
 .gray-box .title {
   position: relative;
   z-index: 10;
@@ -471,4 +476,33 @@ body {
 
 .page-cart i {
   font-style: normal;
+}
+
+.orders-title {
+  background: #eee;
+  height: 38px;
+  padding: 0 24px;
+  border-bottom: 1px solid #dbdbdb;
+  line-height: 38px;
+  font-size: 12px;
+  color: #666;
+}
+
+.left-border {
+  border-left: 1px solid #DBDBDB;
+  line-height: 2;
+}
+
+.order-sum-info {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.order-product-img .thumbnail {
+  width: 85px;
+  margin-bottom: 0px;
 }
